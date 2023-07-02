@@ -5,6 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Http\Traits\GeneralTrait;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 class IsAdmin
 {
     use GeneralTrait;
@@ -16,8 +19,8 @@ class IsAdmin
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {
-        if(auth()->user()->roles()->where('role_name','=','admin')->first())
+    { $user = User::find(Auth::user()->id);
+        if($user->roles()->where('role_name','=','admin')->first())
         return $next($request);
         else
             return $this->errorResponse('Authenticated but Unauthorized',403);

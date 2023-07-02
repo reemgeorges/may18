@@ -4,6 +4,7 @@ namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Traits\GeneralTrait;
 use Illuminate\Http\Request;
@@ -78,6 +79,17 @@ class UserController extends Controller
         catch (\Exception $ex){
             return $this->errorResponse($ex->getMessage(),500);
         }
+    }
+
+    public function getUsersWithReviews()
+    {
+        $usersWithReviews = User::withCount('reviews')
+            ->orderByDesc('reviews_count')
+            ->get();
+
+        $userResource = UserResource::collection($usersWithReviews);
+
+        return $this->successResponse($userResource, 'Users with reviews retrieved successfully');
     }
 
 
