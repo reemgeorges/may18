@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\orders\OrderController;
 use App\Http\Controllers\products\ProductController;
 use App\Http\Controllers\reviews\ReviewsController;
 use App\Http\Controllers\TestController;
@@ -93,5 +94,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
       //===========معدل كل منتج avg
       Route::get('/products/start_avg', [ProductController::class, 'getProductsWithAverageRating']);
    //=======================المستخدمين الذين قيمو منتج
-   Route::post('/products/get_users/{productId}',[ProductController::class, 'getUsersByProductReviews']);
+   Route::get('/products/get_users/{productId}',[ProductController::class, 'getUsersByProductReviews']);
 });

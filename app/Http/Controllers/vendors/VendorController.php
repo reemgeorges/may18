@@ -7,9 +7,12 @@ use App\Http\Resources\VendorResource;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Traits\GeneralTrait;
 
 class VendorController extends Controller
 {
+
+    use GeneralTrait;
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +21,7 @@ class VendorController extends Controller
     public function index()
     {
         try {
-            $vendors = Vendor::with('products');
+            $vendors = Vendor::with('products')->get();
             $vendorCollection = VendorResource::collection($vendors);
             return $this->successResponse($vendorCollection, 'Vendors retrieved successfully');
         } catch (\Exception $ex) {

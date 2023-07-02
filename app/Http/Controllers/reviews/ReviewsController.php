@@ -49,7 +49,7 @@ class ReviewsController extends Controller
             'user_id' => ['required', 'integer', 'exists:users,id'],
             'product_id' => ['required', 'integer', 'exists:products,id'],
             'comment' => ['required', 'string'],
-            'star' => ['required', 'integer'],
+            'start' => ['required', 'integer'],
         ]);
 
         if ($validator->fails()) {
