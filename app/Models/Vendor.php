@@ -9,6 +9,9 @@ class Vendor extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name_vendor'];
+
+
     public function products()
     {
         return $this->belongsToMany(Product::class);
