@@ -20,4 +20,20 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
+
+    public function vendors()
+    {
+        return $this->belongsToMany(Vendor::class);
+    }
+
+    public function averageRating()
+    {
+        return $this->reviews()->avg('start');
+    }
+
+
 }

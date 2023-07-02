@@ -2,8 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use function PHPUnit\Framework\isEmpty;
 
 class Checkroles
@@ -17,7 +20,8 @@ class Checkroles
      */
     public function handle(Request $request, Closure $next)
     {if(auth()->check()) {
-        if (auth()->user()->roles()->whereIn('role_name', ['client', 'owner'])->get()->count()>0)
+        $user = User::find(Auth::user()->id);
+        if ($user->roles()->whereIn('role_name', ['client', 'owner'])->get()->count()>0)
             return $next($request);
         else
             return response()->json('Authenticated but not Authorized');
